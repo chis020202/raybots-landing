@@ -221,26 +221,17 @@
     });
 
     async function fetchPrices() {
-      const api = 'https://api.coingecko.com/api/v3/simple/price?vs_currencies=usd&ids=';
-      const tokenMap = {
-        keyboardcat: '0x9a26f5433671751c3276a065f57e5a02d2817973',
-        russell: '0x0c5142bc58f9a61ab8c3d2085dd2f4e550c5ce0b',
-        basenji: '0xbc45647ea894030a4e9801ec03479739fa2485f0',
-        miggles: '0xb1a03eda10342529bbf8eb700a06c60441fef25d'
-      };
+      const ids = 'ethereum,bitcoin,keyboard-cat,russell,basenji,mister-miggles';
+      const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`;
       try {
-        for (const [name, address] of Object.entries(tokenMap)) {
-          const url = `https://api.dexscreener.com/latest/dex/pairs/ethereum/${address}`;
-          const res = await fetch(url);
-          const data = await res.json();
-          const price = data.pair.priceUsd;
-          document.getElementById(name).textContent = `${name.charAt(0).toUpperCase() + name.slice(1)}: $${parseFloat(price).toFixed(5)}`;
-        }
-
-        const cgRes = await fetch(api + 'ethereum,bitcoin');
-        const prices = await cgRes.json();
-        document.getElementById('eth').textContent = `ETH: $${prices.ethereum.usd}`;
-        document.getElementById('btc').textContent = `BTC: $${prices.bitcoin.usd}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        document.getElementById('keyboardcat').textContent = `Keyboard Cat: $${data["keyboard-cat"]?.usd ?? 'N/A'}`;
+        document.getElementById('russell').textContent = `RUSSELL: $${data.russell?.usd ?? 'N/A'}`;
+        document.getElementById('basenji').textContent = `Basenji: $${data.basenji?.usd ?? 'N/A'}`;
+        document.getElementById('miggles').textContent = `Mister Miggles: $${data["mister-miggles"]?.usd ?? 'N/A'}`;
+        document.getElementById('eth').textContent = `ETH: $${data.ethereum?.usd ?? 'N/A'}`;
+        document.getElementById('btc').textContent = `BTC: $${data.bitcoin?.usd ?? 'N/A'}`;
       } catch (err) {
         console.error('Error fetching prices:', err);
       }
