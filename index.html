@@ -159,7 +159,11 @@
       box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
       backdrop-filter: blur(8px);
       font-size: 0.9rem;
+      transition: background-color 0.3s ease;
     }
+
+    .price-box.positive { background-color: rgba(0, 128, 0, 0.25); }
+    .price-box.negative { background-color: rgba(255, 0, 0, 0.25); }
   </style>
 </head>
 <body>
@@ -189,13 +193,14 @@
   </a>
 
   <!-- Price Tracker -->
-  <div class="price-tracker">
+  <div class="price-tracker" id="price-tracker">
     <div class="price-box" id="keyboardcat">Keyboard Cat: Loading...</div>
     <div class="price-box" id="russell">RUSSELL: Loading...</div>
     <div class="price-box" id="basenji">Basenji: Loading...</div>
     <div class="price-box" id="miggles">Mister Miggles: Loading...</div>
     <div class="price-box" id="eth">ETH: Loading...</div>
     <div class="price-box" id="btc">BTC: Loading...</div>
+    <small id="last-updated" style="opacity:0.5; font-size:0.7rem; margin-top: 0.5rem;"></small>
   </div>
 
   <!-- Buzz Sound -->
@@ -211,7 +216,6 @@
       }
     }
 
-    // Buzz on hover
     const buzz = document.getElementById('buzz');
     document.querySelectorAll('.button').forEach(btn => {
       btn.addEventListener('mouseenter', () => {
@@ -220,34 +224,47 @@
       });
     });
 
+    const tokens = [
+      { id: "keyboard-cat", label: "Keyboard Cat", box: "keyboardcat" },
+      { id: "russell", label: "RUSSELL", box: "russell" },
+      { id: "basenji", label: "Basenji", box: "basenji" },
+      { id: "mister-miggles", label: "Mister Miggles", box: "miggles" },
+      { id: "ethereum", label: "ETH", box: "eth" },
+      { id: "bitcoin", label: "BTC", box: "btc" }
+    ];
+
     async function fetchPrices() {
-      const ids = 'ethereum,bitcoin,keyboard-cat,russell,basenji,mister-miggles';
+      const ids = tokens.map(t => t.id).join(',');
       const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`;
       try {
         const res = await fetch(url);
         const data = await res.json();
+        const now = new Date();
 
-        function formatPrice(name, label) {
-          const coin = data[name];
-          if (!coin) return `${label}: N/A`;
+        tokens.forEach(({ id, label, box }) => {
+          const coin = data[id];
+          const element = document.getElementById(box);
+          if (!coin || !element) return;
+
           const price = `$${coin.usd.toFixed(4)}`;
           const change = coin.usd_24h_change.toFixed(2);
-          const changeColor = change >= 0 ? 'lime' : 'red';
-          return `${label}: ${price} <span style="color:${changeColor};">(${change}%)</span>`;
-        }
+          const arrow = change >= 0 ? '⬆️' : '⬇️';
+          const color = change >= 0 ? 'lime' : 'red';
 
-        document.getElementById('keyboardcat').innerHTML = formatPrice("keyboard-cat", "Keyboard Cat");
-        document.getElementById('russell').innerHTML = formatPrice("russell", "RUSSELL");
-        document.getElementById('basenji').innerHTML = formatPrice("basenji", "Basenji");
-        document.getElementById('miggles').innerHTML = formatPrice("mister-miggles", "Mister Miggles");
-        document.getElementById('eth').innerHTML = formatPrice("ethereum", "ETH");
-        document.getElementById('btc').innerHTML = formatPrice("bitcoin", "BTC");
+          element.classList.remove("positive", "negative");
+          element.classList.add(change >= 0 ? "positive" : "negative");
+
+          element.innerHTML = `${label}: ${price} <span style="color:${color};">${arrow} ${change}%</span>`;
+        });
+
+        document.getElementById("last-updated").textContent = `Last updated: ${now.toLocaleTimeString()}`;
+
       } catch (err) {
         console.error('Error fetching prices:', err);
       }
     }
 
-    setInterval(fetchPrices, 10000);
+    setInterval(fetchPrices, 15000);
     fetchPrices();
   </script>
 </body>
