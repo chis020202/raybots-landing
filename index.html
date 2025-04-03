@@ -13,6 +13,7 @@
       background-color: #0a0a0a;
       color: #fff;
       height: 100vh;
+      overflow: hidden;
       background-image: url('assets/hero.png');
       background-size: cover;
       background-position: center;
@@ -56,7 +57,18 @@
       max-width: 300px;
       height: auto;
       border-radius: 10px;
-      box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
+      border: 2px solid #ffd700;
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+      animation: pulse-glow 2.5s infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% {
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+      }
+      50% {
+        box-shadow: 0 0 35px rgba(255, 255, 100, 0.7);
+      }
     }
 
     .button-container {
@@ -87,6 +99,28 @@
       box-shadow: 0 0 15px rgba(255, 255, 0, 0.6), 0 0 40px rgba(255, 255, 100, 0.4);
       transform: scale(1.06);
     }
+
+    .floating-bee {
+      position: absolute;
+      top: 30%;
+      left: -100px;
+      width: 80px;
+      z-index: 5;
+      animation: fly-across 18s linear infinite;
+      opacity: 0.9;
+    }
+
+    @keyframes fly-across {
+      0% {
+        transform: translateX(0) translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateX(120vw) translateY(-20px) rotate(15deg);
+      }
+      100% {
+        transform: translateX(0) translateY(0) rotate(0deg);
+      }
+    }
   </style>
 </head>
 <body>
@@ -107,6 +141,12 @@
     </div>
   </div>
 
+  <!-- Floating Drone Bee -->
+  <img src="assets/bee-drone.png" alt="Bee Drone" class="floating-bee" />
+
+  <!-- Buzz Sound -->
+  <audio id="buzz" src="assets/buzz.mp3" preload="auto"></audio>
+
   <script>
     function handleCodeServer() {
       const password = prompt("Enter the password to access the code server:");
@@ -116,6 +156,15 @@
         alert("Incorrect password.");
       }
     }
+
+    // Buzz on hover
+    const buzz = document.getElementById('buzz');
+    document.querySelectorAll('.button').forEach(btn => {
+      btn.addEventListener('mouseenter', () => {
+        buzz.currentTime = 0;
+        buzz.play();
+      });
+    });
   </script>
 </body>
 </html>
