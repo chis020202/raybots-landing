@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RayBots HQ</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #0f0f0f;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(to bottom right, #111, #1a1a1a);
+      text-align: center;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+    .logo {
+      width: 180px;
+      margin-bottom: 1rem;
+      animation: pulse 4s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.85; }
+    }
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .button {
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 999px;
+      font-size: 1rem;
+      cursor: pointer;
+      color: black;
+      font-weight: bold;
+      background: linear-gradient(45deg, #facc15, #fcd34d);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+    }
+  </style>
+</head>
+<body>
+  <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Digital Bee Logo" class="logo" />
+  <h1>Welcome to RayBots HQ 🐝</h1>
+  <p>Choose your path into the hive...</p>
+
+  <div class="buttons">
+    <a href="https://authenticallycrypto.io/" class="button">Get a Bot Package</a>
+    <a href="https://www.tiktok.com/@christopherray954?lang=en" class="button">Follow me on TikTok</a>
+    <a href="https://t.me/authenticallycrypto" class="button">Check out our Telegram</a>
+    <button class="button" onclick="requestPassword()">Enter Code Server</button>
+  </div>
+
+  <script>
+    function requestPassword() {
+      const pwd = prompt("Enter password to access Code Server:");
+      if (pwd === "your-secret-password") {
+        window.location.href = "https://code.raybots.org";
+      } else {
+        alert("Incorrect password. Access denied.");
+      }
+    }
+  </script>
+</body>
+</html>
+
