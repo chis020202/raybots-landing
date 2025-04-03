@@ -222,16 +222,26 @@
 
     async function fetchPrices() {
       const ids = 'ethereum,bitcoin,keyboard-cat,russell,basenji,mister-miggles';
-      const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`;
+      const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`;
       try {
         const res = await fetch(url);
         const data = await res.json();
-        document.getElementById('keyboardcat').textContent = `Keyboard Cat: $${data["keyboard-cat"]?.usd ?? 'N/A'}`;
-        document.getElementById('russell').textContent = `RUSSELL: $${data.russell?.usd ?? 'N/A'}`;
-        document.getElementById('basenji').textContent = `Basenji: $${data.basenji?.usd ?? 'N/A'}`;
-        document.getElementById('miggles').textContent = `Mister Miggles: $${data["mister-miggles"]?.usd ?? 'N/A'}`;
-        document.getElementById('eth').textContent = `ETH: $${data.ethereum?.usd ?? 'N/A'}`;
-        document.getElementById('btc').textContent = `BTC: $${data.bitcoin?.usd ?? 'N/A'}`;
+
+        function formatPrice(name, label) {
+          const coin = data[name];
+          if (!coin) return `${label}: N/A`;
+          const price = `$${coin.usd.toFixed(4)}`;
+          const change = coin.usd_24h_change.toFixed(2);
+          const changeColor = change >= 0 ? 'lime' : 'red';
+          return `${label}: ${price} <span style="color:${changeColor};">(${change}%)</span>`;
+        }
+
+        document.getElementById('keyboardcat').innerHTML = formatPrice("keyboard-cat", "Keyboard Cat");
+        document.getElementById('russell').innerHTML = formatPrice("russell", "RUSSELL");
+        document.getElementById('basenji').innerHTML = formatPrice("basenji", "Basenji");
+        document.getElementById('miggles').innerHTML = formatPrice("mister-miggles", "Mister Miggles");
+        document.getElementById('eth').innerHTML = formatPrice("ethereum", "ETH");
+        document.getElementById('btc').innerHTML = formatPrice("bitcoin", "BTC");
       } catch (err) {
         console.error('Error fetching prices:', err);
       }
