@@ -30,8 +30,15 @@
       z-index: 10;
     }
 
+    .left-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      max-width: 500px;
+    }
+
     .heading {
-      text-align: center;
+      text-align: left;
     }
 
     .heading h1 {
@@ -41,7 +48,15 @@
 
     .heading p {
       font-size: 1.1rem;
-      margin: 0.5rem 0 0;
+      margin: 0.5rem 0 1rem;
+    }
+
+    .portrait {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
     }
 
     .button-container {
@@ -72,19 +87,16 @@
       box-shadow: 0 0 15px rgba(255, 255, 0, 0.6), 0 0 40px rgba(255, 255, 100, 0.4);
       transform: scale(1.06);
     }
-
-    .logo {
-      max-width: 300px;
-      height: auto;
-      margin-bottom: 2rem;
-    }
   </style>
 </head>
 <body>
   <div class="top-bar">
-    <div class="heading">
-      <h1>Welcome to RayBots HQ 🐝</h1>
-      <p>Choose your path to the live hive...</p>
+    <div class="left-content">
+      <div class="heading">
+        <h1>Welcome to RayBots HQ 🐝</h1>
+        <p>Choose your path to the live hive...</p>
+      </div>
+      <img src="assets/hiveme.png" alt="Digital Portrait" class="portrait" />
     </div>
     <div class="button-container">
       <a href="https://authenticallycrypto.io/" class="button">Get a Bot Package from Authentically Crypto</a>
@@ -107,3 +119,4 @@
   </script>
 </body>
 </html>
+
