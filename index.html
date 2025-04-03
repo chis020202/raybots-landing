@@ -7,18 +7,17 @@
   <link rel="stylesheet" href="style.css" />
   <style>
     body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #0a0a0a;
-  color: #fff;
-  height: 100vh;
-  overflow: hidden;
-  background-image: url('assets/hero.png');
-  background-size: cover;
-  background-position: center top 30%;
-}
-
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0a0a0a;
+      color: #fff;
+      height: 100vh;
+      overflow: hidden;
+      background-image: url('assets/hero.png');
+      background-size: cover;
+      background-position: center top 30%;
+    }
 
     .top-bar {
       position: absolute;
@@ -119,6 +118,25 @@
       80%  { transform: translate(-5vw, 10vh) rotate(-5deg); }
       100% { transform: translate(0px, 0px) rotate(0deg); }
     }
+
+    .join-hive {
+      position: absolute;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 180px;
+      max-width: 100%;
+      z-index: 12;
+      animation: glow-fade 3s ease-in-out infinite;
+    }
+
+    @keyframes glow-fade {
+      0%, 100% {
+        filter: drop-shadow(0 0 5px #ffd700) drop-shadow(0 0 10px #ffd700);
+      }
+      50% {
+        filter: drop-shadow(0 0 15px #ffff99) drop-shadow(0 0 25px #ffffcc);
+      }
+    }
   </style>
 </head>
 <body>
@@ -141,6 +159,11 @@
 
   <!-- Floating Drone Bee -->
   <img src="assets/bee-drone.png" alt="Bee Drone" class="floating-bee" />
+
+  <!-- Join the Hive Promo -->
+  <a href="https://authenticallycrypto.io/" target="_blank">
+    <img src="assets/join.png" alt="Join the Hive" class="join-hive" />
+  </a>
 
   <!-- Buzz Sound -->
   <audio id="buzz" src="assets/buzz.mp3" preload="auto"></audio>
@@ -166,3 +189,4 @@
   </script>
 </body>
 </html>
+
