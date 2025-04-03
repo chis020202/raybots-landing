@@ -100,26 +100,14 @@
       transform: scale(1.06);
     }
 
-    .floating-bee {
+    #drone-bee {
       position: absolute;
-      top: 30%;
-      left: -100px;
       width: 80px;
+      height: auto;
+      top: 40vh;
+      left: 50vw;
       z-index: 5;
-      animation: fly-across 18s linear infinite;
-      opacity: 0.9;
-    }
-
-    @keyframes fly-across {
-      0% {
-        transform: translateX(0) translateY(0) rotate(0deg);
-      }
-      50% {
-        transform: translateX(120vw) translateY(-20px) rotate(15deg);
-      }
-      100% {
-        transform: translateX(0) translateY(0) rotate(0deg);
-      }
+      pointer-events: none;
     }
   </style>
 </head>
@@ -142,7 +130,7 @@
   </div>
 
   <!-- Floating Drone Bee -->
-  <img src="assets/bee-drone.png" alt="Bee Drone" class="floating-bee" />
+  <img src="assets/bee-drone.png" id="drone-bee" alt="Buzzing Bee" />
 
   <!-- Buzz Sound -->
   <audio id="buzz" src="assets/buzz.mp3" preload="auto"></audio>
@@ -165,6 +153,39 @@
         buzz.play();
       });
     });
+
+    // Random bee animation
+    const bee = document.getElementById("drone-bee");
+    let posX = 50;
+    let posY = 40;
+
+    function animateBee() {
+      const targetX = Math.random() * 90;
+      const targetY = Math.random() * 70;
+      const duration = 3000 + Math.random() * 2000;
+
+      const startX = posX;
+      const startY = posY;
+      const startTime = performance.now();
+
+      function moveBee(time) {
+        const progress = Math.min((time - startTime) / duration, 1);
+        posX = startX + (targetX - startX) * progress;
+        posY = startY + (targetY - startY) * progress;
+
+        bee.style.transform = `translate(${posX}vw, ${posY}vh) scale(${1 + 0.05 * Math.sin(time / 300)})`;
+
+        if (progress < 1) {
+          requestAnimationFrame(moveBee);
+        } else {
+          setTimeout(animateBee, 1000 + Math.random() * 2000);
+        }
+      }
+
+      requestAnimationFrame(moveBee);
+    }
+
+    animateBee();
   </script>
 </body>
 </html>
