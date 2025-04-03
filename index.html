@@ -2,103 +2,78 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RayBots HQ</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
     body {
       margin: 0;
       padding: 0;
-      background-color: #0a0a0a;
-      background-image: url('assets/circuit-bg.png'); /* optional */
-      background-size: cover;
-      background-position: center;
-      color: #f5f5f5;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0a0a0a;
+      color: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
-      text-align: center;
-      min-height: 100vh;
-    }
-
-    img.hero {
-      max-width: 300px;
-      margin-top: 60px;
-      animation: float 6s ease-in-out infinite;
+      justify-content: center;
+      height: 100vh;
+      background-image: url('assets/hero.png');
+      background-size: cover;
+      background-position: center;
     }
 
     h1 {
-      font-size: 2.8rem;
-      margin: 20px 0 10px;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      text-align: center;
     }
 
     p {
       font-size: 1.1rem;
-      margin-bottom: 30px;
-      color: #ccc;
+      margin-bottom: 2rem;
+      text-align: center;
     }
 
-    .buttons {
+    .button-container {
       display: flex;
       flex-direction: column;
-      gap: 15px;
-      margin-bottom: 80px;
+      gap: 1rem;
+      align-items: center;
     }
 
     .button {
-      background: #ffd700;
-      color: #111;
-      padding: 14px 28px;
-      font-size: 1rem;
-      font-weight: bold;
+      background-color: #ffd700;
+      color: #000;
+      padding: 1rem 2rem;
       border: none;
-      border-radius: 40px;
-      box-shadow: 0 0 15px #ffd700aa;
-      text-decoration: none;
-      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      border-radius: 999px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+      transition: transform 0.2s ease;
     }
 
     .button:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 25px #ffd700ee;
     }
 
-    @keyframes float {
-      0%   { transform: translateY(0px); }
-      50%  { transform: translateY(-10px); }
-      100% { transform: translateY(0px); }
-    }
-
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2rem;
-      }
-
-      .button {
-        font-size: 0.95rem;
-        padding: 12px 24px;
-      }
-
-      img.hero {
-        max-width: 220px;
-      }
+    .logo {
+      max-width: 300px;
+      height: auto;
+      margin-bottom: 2rem;
     }
   </style>
 </head>
 <body>
-
-  <img src="assets/hero-bee.png" alt="RayBots Digital Bee" class="hero" />
-
+  <img src="assets/hero.png" alt="RayBots Digital Bee" class="logo" />
   <h1>Welcome to RayBots HQ 🐝</h1>
   <p>Choose your path to the live hive...</p>
-
-  <div class="buttons">
-    <a href="https://authenticallycrypto.io/" class="button" target="_blank">Get a Bot Package</a>
-    <a href="https://www.tiktok.com/@christopherray954?lang=en" class="button" target="_blank">Follow me on TikTok</a>
-    <a href="https://t.me/authenticallycrypto" class="button" target="_blank">Check out our Telegram</a>
-    <a href="https://code.raybots.org" class="button" target="_blank">Enter Code Server</a>
+  <div class="button-container">
+    <a href="https://authenticallycrypto.io/" class="button">Get a Bot Package</a>
+    <a href="https://www.tiktok.com/@christopherray954?lang=en" class="button">Follow me on TikTok</a>
+    <a href="https://t.me/authenticallycrypto" class="button">Check out our Telegram</a>
+    <a href="https://code.raybots.org" class="button">Enter Code Server</a>
   </div>
-
 </body>
 </html>
 
