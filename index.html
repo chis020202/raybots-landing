@@ -12,10 +12,11 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #0a0a0a;
       color: #fff;
+      height: 100vh;
+      overflow: hidden;
       background-image: url('assets/hero.png');
       background-size: cover;
-      background-position: center;
-      overflow-x: hidden;
+      background-position: center top 20%;
     }
 
     .top-bar {
@@ -101,31 +102,21 @@
 
     .floating-bee {
       position: absolute;
+      top: 50%;
+      left: 50%;
       width: 80px;
       z-index: 5;
-      transition: transform 3s ease-in-out;
-      opacity: 0.85;
+      animation: random-fly 18s infinite ease-in-out;
+      opacity: 0.9;
     }
 
-    @media (max-width: 768px) {
-      body {
-        overflow-y: auto;
-      }
-
-      .top-bar {
-        flex-direction: column;
-        align-items: center;
-        gap: 2rem;
-      }
-
-      .button-container {
-        align-items: center;
-      }
-
-      .left-content {
-        align-items: center;
-        text-align: center;
-      }
+    @keyframes random-fly {
+      0%   { transform: translate(0px, 0px) rotate(0deg); }
+      20%  { transform: translate(60vw, -10vh) rotate(15deg); }
+      40%  { transform: translate(-10vw, 20vh) rotate(-10deg); }
+      60%  { transform: translate(30vw, -15vh) rotate(10deg); }
+      80%  { transform: translate(-5vw, 10vh) rotate(-5deg); }
+      100% { transform: translate(0px, 0px) rotate(0deg); }
     }
   </style>
 </head>
@@ -138,7 +129,6 @@
       </div>
       <img src="assets/hiveme.png" alt="Digital Portrait" class="portrait" />
     </div>
-
     <div class="button-container">
       <a href="https://authenticallycrypto.io/" class="button">Get a Bot Package from Authentically Crypto</a>
       <a href="https://www.tiktok.com/@christopherray954?lang=en" class="button">Follow me on TikTok</a>
@@ -149,7 +139,7 @@
   </div>
 
   <!-- Floating Drone Bee -->
-  <img src="assets/bee-drone.png" alt="Bee Drone" class="floating-bee" id="bee" />
+  <img src="assets/bee-drone.png" alt="Bee Drone" class="floating-bee" />
 
   <!-- Buzz Sound -->
   <audio id="buzz" src="assets/buzz.mp3" preload="auto"></audio>
@@ -164,7 +154,7 @@
       }
     }
 
-    // Buzz sound on hover
+    // Buzz on hover
     const buzz = document.getElementById('buzz');
     document.querySelectorAll('.button').forEach(btn => {
       btn.addEventListener('mouseenter', () => {
@@ -172,21 +162,6 @@
         buzz.play();
       });
     });
-
-    // Random bee movement
-    const bee = document.getElementById('bee');
-    function moveBeeRandomly() {
-      const maxX = window.innerWidth - 100;
-      const maxY = window.innerHeight - 100;
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
-      const rotation = Math.random() * 360;
-      bee.style.transform = `translate(${x}px, ${y}px) rotate(${rotation}deg)`;
-    }
-
-    setInterval(moveBeeRandomly, 3000);
-    window.addEventListener('resize', moveBeeRandomly);
-    moveBeeRandomly();
   </script>
 </body>
 </html>
